@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('../../fonts/Nunito-Regular.ttf');
+}
+
+:root {
+  --border-radius: 5px;
+  --transition: all 0.15s ease-in-out;
+  --font-family: 'Nunito', sans-serif;
+
+  --blue: #2196f3;
+
+  --grey: #9e9e9e;
+  --grey-dark: #424242;
+  --grey-light: #e0e0e0;
+  --black: #212121;
+
+  --white: #ffffff;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  transition: 0.5s;
+}
+
+.container {
+  height: 65vh;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-top: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
