@@ -1,0 +1,10 @@
+.uploadButton {
+    margin: 1.5rem 0;
+    .uploadButton__imput {
+        background-color: var(--white);
+        border: 1px solid var(--grey-light);
+        color: var(--blue);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}

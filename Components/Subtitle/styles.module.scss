@@ -1,0 +1,35 @@
+.subtitle {
+    width: 50%;
+    max-height: 35vh;
+    background-color: rgba(224, 224, 224, 0.5);
+    border: 1px solid var(--grey);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow: hidden;
+    overflow-y: auto;
+    transition: var(--transition);
+
+    .subtitleItem {
+        width: 100%;
+        margin: 0 1rem;
+
+        p {
+            margin: 0;
+            color: var(--grey-dark);
+        }
+
+        p:nth-child(3) {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.subtitle:hover {
+    background-color: rgba(224, 224, 224, 0.8);
+    border: 1px solid var(--grey-dark);
+    cursor: auto;
+}
