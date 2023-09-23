@@ -1,4 +1,4 @@
-export default async function Upload(file: File) {
+export default async function UploadVideo(file: File) {
     const formData = new FormData();
     formData.append('videoPath', file);
 

@@ -42,13 +42,13 @@ npm run dev
 
 1. Go to http://localhost:3000
 
-2. Upload your video file
+2. Upload your video file or paste the link to your video
 
 3. Click on the "Generate" button
 
 4. Wait for the subtitle to be generated
 
-5. It's done !
+5. It's done!
 
 ## Sources Accepeted
 
@@ -79,6 +79,7 @@ npm run dev
 - [Next.js](https://nextjs.org/)
 - [FFmpeg](https://ffmpeg.org/)
 - [Multer](https://www.npmjs.com/package/multer)
+- [Axios](https://www.npmjs.com/package/axios)
 - [TS](https://www.typescriptlang.org/)
 - [SASS](https://sass-lang.com/)
 - [Material UI](https://material-ui.com/)

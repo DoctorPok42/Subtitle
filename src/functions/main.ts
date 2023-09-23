@@ -1,21 +1,34 @@
-import Upload from "./upload";
-import Transcription from "./transcription";
+import UploadVideo from "./uploadVideo";
+import UploadLink from "./uploadLink";
 import DeleteAudioFiles from "./delete";
+import Transcription from "./transcription";
 import { ButtonText, SubtitleType } from "../../types";
 
 export default async function startProcess(
-    file: File,
+    file: File | null,
+    link: string | null,
     setFile: (file: File | null) => void,
     setCanStart: (canStart: boolean) => void,
     setText: (text: ButtonText) => void,
     setSubtitle: (subtitle: SubtitleType[]) => void,
-    setError: (errorMessage: string) => void
+    setError: (errorMessage: string) => void,
+    setIsFileOrLink: (isFileOrLink: 'file' | 'link' | null) => void
     ) {
 
     try {
         setText("Uploading...");
 
-        const uploadResponse = await Upload(file);
+        var uploadResponse;
+
+        if (file) {
+            uploadResponse = await UploadVideo(file);
+        } else if (link) {
+            uploadResponse = await UploadLink(link);
+        } else {
+            setError("No file or link provided");
+            setText("Error");
+            return;
+        }
 
         if (uploadResponse.ok) {
             const { audioPath } = await uploadResponse.json();
@@ -34,6 +47,10 @@ export default async function startProcess(
                 setError(errorMessage);
                 setText("Error");
             }
+        } else {
+            setError("Something went wrong");
+            setText("Error");
+            setCanStart(true);
         }
     } catch (error) {
         setError('Something went wrong');
@@ -43,6 +60,7 @@ export default async function startProcess(
             setText("Generate");
             setCanStart(true);
             setFile(null);
+            setIsFileOrLink(null);
         }, 2000);
     }
 }
