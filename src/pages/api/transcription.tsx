@@ -12,9 +12,9 @@ const WHISPER_MODEL = 'whisper-1'
 
 export default async function transcription(req: any, res: any) {
     try {
-        const { audioPath } = JSON.parse(req.body)
+        const { audioPath, lang } = JSON.parse(req.body)
 
-        const language = 'en-US'
+        const language = lang ? lang : 'en-US'
         const response_format = 'srt'
 
         const transcription = await openai.createTranscription(

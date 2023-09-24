@@ -12,7 +12,8 @@ export default async function startProcess(
     setText: (text: ButtonText) => void,
     setSubtitle: (subtitle: SubtitleType[]) => void,
     setError: (errorMessage: string) => void,
-    setIsFileOrLink: (isFileOrLink: 'file' | 'link' | null) => void
+    setIsFileOrLink: (isFileOrLink: 'file' | 'link' | null) => void,
+    lang: string | undefined
     ) {
 
     try {
@@ -34,7 +35,7 @@ export default async function startProcess(
             const { audioPath } = await uploadResponse.json();
             setText("Get subtitle...");
 
-            const transcriptionResponse = await Transcription(audioPath);
+            const transcriptionResponse = await Transcription(audioPath, lang);
 
             DeleteAudioFiles(audioPath);
 

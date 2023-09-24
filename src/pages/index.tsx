@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { UploadButton, GenerateButton, Subtitle, PopUpLink } from '../../Components'
+import { UploadButton, GenerateButton, Subtitle, PopUpLink, SelectLang } from '../../Components'
 import { useState } from 'react'
 import { Alert } from '@mui/material'
 import { SubtitleType, ButtonText } from '../../types'
@@ -14,6 +14,7 @@ const Home = () => {
   const [subTitle, setSubTitle] = useState<SubtitleType[] | null>(null)
   const [isPopUpLinkOpen, setIsPopUpLinkOpen] = useState<boolean>(false);
   const [isFileOrLink, setIsFileOrLink] = useState<'file' | 'link' | null>(null);
+  const [lang, setLang] = useState<string | undefined>(undefined);
 
   const handleStart = async () => {
     if (!canStart) return
@@ -23,7 +24,7 @@ const Home = () => {
       setSubTitle(null)
       setError(null)
 
-      startProcess(file, link, setFile, setCanStart, setText, setSubTitle, setError, setIsFileOrLink)
+      startProcess(file, link, setFile, setCanStart, setText, setSubTitle, setError, setIsFileOrLink, lang)
     }
   }
 
@@ -55,6 +56,9 @@ const Home = () => {
           setIsFileOrLink={setIsFileOrLink}
           isFileOrLink={isFileOrLink}
         />
+
+        <SelectLang setLang={setLang} />
+
         <GenerateButton file={file} link={link} handleStart={handleStart} text={text} />
 
         {subTitle && <Subtitle subTitle={subTitle} /> }
