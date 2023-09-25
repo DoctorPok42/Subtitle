@@ -57,7 +57,7 @@ const Home = () => {
           isFileOrLink={isFileOrLink}
         />
 
-        <SelectLang setLang={setLang} />
+        <SelectLang setLang={setLang} canStart={canStart} />
 
         <GenerateButton file={file} link={link} handleStart={handleStart} text={text} />
 

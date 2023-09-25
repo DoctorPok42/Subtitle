@@ -5,10 +5,12 @@ import styles from "./styles.module.scss";
 
 interface SelectLangProps  {
     setLang: (lang: string | undefined) => void;
+    canStart: boolean;
 }
 
 const SelectLang = ({
-    setLang
+    setLang,
+    canStart
 } : SelectLangProps) => {
     return (
         <div className={styles.selectLang}>
@@ -18,6 +20,7 @@ const SelectLang = ({
                 className={styles.select}
                 isSearchable={true}
                 onChange={(e) => setLang(e?.value)}
+                isDisabled={!canStart}
             />
         </div>
     )
