@@ -3,6 +3,7 @@ import UploadLink from "./uploadLink";
 import DeleteAudioFiles from "./delete";
 import Transcription from "./transcription";
 import { ButtonText, SubtitleType } from "../../types";
+import Translate from "./translate";
 
 export default async function startProcess(
     file: File | null,
@@ -13,7 +14,9 @@ export default async function startProcess(
     setSubtitle: (subtitle: SubtitleType[]) => void,
     setError: (errorMessage: string) => void,
     setIsFileOrLink: (isFileOrLink: 'file' | 'link' | null) => void,
-    lang: string | undefined
+    isTranslate: boolean,
+    lang: string | undefined,
+    langTranslate: string | undefined
     ) {
 
     try {
@@ -42,7 +45,25 @@ export default async function startProcess(
             if (transcriptionResponse.ok) {
                 const { subtitles } = await transcriptionResponse.json();
                 setSubtitle(subtitles);
-                setText("Done!");
+
+                if (!isTranslate) {
+                    setText("Done!");
+                    return;
+                }
+
+                setText("Translate...");
+                const translate = await Translate(subtitles, langTranslate);
+
+                if (translate.ok) {
+                    const { translatedSubtitles } = await translate.json();
+                    setSubtitle(translatedSubtitles);
+                    setText("Done!");
+                } else {
+                    setError("Something went wrong");
+                    setText("Error");
+                    setCanStart(true);
+                    return;
+                }
             } else {
                 const errorMessage = await transcriptionResponse.json();
                 setError(errorMessage);

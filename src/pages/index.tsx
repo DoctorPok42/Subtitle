@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { UploadButton, GenerateButton, Subtitle, PopUpLink, SelectLang } from '../../Components'
+import { UploadButton, GenerateButton, Subtitle, PopUpLink, SelectLang, CheckBox } from '../../Components'
 import { useState } from 'react'
 import { Alert } from '@mui/material'
 import { SubtitleType, ButtonText } from '../../types'
@@ -15,6 +15,8 @@ const Home = () => {
   const [isPopUpLinkOpen, setIsPopUpLinkOpen] = useState<boolean>(false);
   const [isFileOrLink, setIsFileOrLink] = useState<'file' | 'link' | null>(null);
   const [lang, setLang] = useState<string | undefined>(undefined);
+  const [isTranslate, setIsTranslate] = useState<boolean>(false);
+  const [langTranslate, setLangTranslate] = useState<string | undefined>(undefined);
 
   const handleStart = async () => {
     if (!canStart) return
@@ -24,7 +26,19 @@ const Home = () => {
       setSubTitle(null)
       setError(null)
 
-      startProcess(file, link, setFile, setCanStart, setText, setSubTitle, setError, setIsFileOrLink, lang)
+      startProcess(
+        file,
+        link,
+        setFile,
+        setCanStart,
+        setText,
+        setSubTitle,
+        setError,
+        setIsFileOrLink,
+        isTranslate,
+        lang,
+        langTranslate
+      )
     }
   }
 
@@ -57,7 +71,18 @@ const Home = () => {
           isFileOrLink={isFileOrLink}
         />
 
-        <SelectLang setLang={setLang} canStart={canStart} />
+        <SelectLang setLang={setLang} canStart={canStart} title="Select the language of the video" />
+
+        <CheckBox
+          title="Translate in another language"
+          checked={isTranslate}
+          onChange={() => setIsTranslate(!isTranslate)}
+        />
+
+        {
+          isTranslate &&
+          <SelectLang setLang={setLangTranslate} canStart={canStart} title='Select the language of the translation' />
+        }
 
         <GenerateButton file={file} link={link} handleStart={handleStart} text={text} />
 

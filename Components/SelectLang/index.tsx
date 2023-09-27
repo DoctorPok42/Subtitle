@@ -6,17 +6,19 @@ import styles from "./styles.module.scss";
 interface SelectLangProps  {
     setLang: (lang: string | undefined) => void;
     canStart: boolean;
+    title: string;
 }
 
 const SelectLang = ({
     setLang,
-    canStart
+    canStart,
+    title
 } : SelectLangProps) => {
     return (
         <div className={styles.selectLang}>
             <Select
                 options={allLangs}
-                placeholder="Select the language of the video"
+                placeholder={title}
                 className={styles.select}
                 isSearchable={true}
                 onChange={(e) => setLang(e?.value)}
