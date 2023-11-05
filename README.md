@@ -4,7 +4,7 @@
 
 # Subtitle
 
-### Create a subtitle for your video in a few clicks
+### Create subtitles for your video in a few clicks
 
 ## Installation
 
