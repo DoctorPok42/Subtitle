@@ -20,7 +20,11 @@ const PopUpLink = ({ setIsPopUpLinkOpen, setLink, link, setIsFileOrLink }: PopUp
     }
 
     return (
-        <div className={styles.popupLink}>
+        <div className={styles.popupLink} onKeyUp={(e) => {
+            if (e.key === "Escape") {
+                setIsPopUpLinkOpen(false)
+            }
+        }}>
             <div className={styles.popupLink__content}>
                 <div className={styles.popupLink__close}>
                     <IconButton>
