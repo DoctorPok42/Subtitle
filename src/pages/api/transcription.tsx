@@ -18,13 +18,12 @@ export default async function transcription(req: any, res: any) {
         const response_format = 'srt'
 
         const transcription = await openai.createTranscription(
-            fs.createReadStream(audioPath) as any,
             WHISPER_MODEL as any,
             language,
             response_format
         );
 
-        const apiResponse = transcription.data;
+        const apiResponse = transcription.data as any;
 
         const lines = apiResponse.trim().split('\n');
 

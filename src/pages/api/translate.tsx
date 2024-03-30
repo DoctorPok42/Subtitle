@@ -1,19 +1,17 @@
-import { Configuration, OpenAIApi } from 'openai'
 import SubtitleType from '../../../types/subtitle';
 import { NextApiRequest, NextApiResponse } from 'next';
+import Groq from 'groq-sdk';
 
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY as string,
-})
-
-const openai = new OpenAIApi(configuration)
+const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY
+});
 
 export default async function translate(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { subtitles, lang } = JSON.parse(req.body)
+        const { subtitles, lang } = JSON.parse(req.body);
 
-        const transcription = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+        const transcription = await groq.chat.completions.create({
+            model: "llama2-70b-4096",
             messages: [
                 {
                     role: "system",
@@ -24,9 +22,10 @@ export default async function translate(req: NextApiRequest, res: NextApiRespons
                     content: subtitles.map((subtitle: SubtitleType) => subtitle.text).join('\n')
                 }
             ]
-        });
+        })
 
-        const apiResponse = transcription.data.choices[0].message?.content
+        const apiResponse = transcription.choices[0].message?.content || ""
+        console.log(apiResponse)
 
         if (!apiResponse) {
             return res.status(500).json({ error: 'Something went wrong' });
