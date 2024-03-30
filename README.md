@@ -4,35 +4,29 @@
 
 # Subtitle
 
-### Create subtitles for your video in a few clicks
+## Create subtitles for your video in a few clicks
 
 ## Installation
 
-1. Clone the repository
+- 1 Clone the repository
 
 ```bash
 git git@github.com:DoctorPok42/Subtitle.git
 ```
 
-2. Install dependencies
+- 2 Install dependencies
 
 ```bash
 npm install
 ```
 
-3. Add .env file
+- 3 Rename the .env.example file to .env and fill in the variables
 
 ```bash
-touch .env
+GROQ_API_KEY="YOUR_API_KEY"
 ```
 
-4. Add the following variables to the .env file
-
-```bash
-OPENAI_API_KEY= # Your OpenAI API key
-```
-
-5. Run the project
+- 4 Run the project
 
 ```bash
 npm run dev
@@ -40,7 +34,7 @@ npm run dev
 
 ## Usage
 
-1. Go to http://localhost:3000
+1. Go to [localhost:3000](http://localhost:3000)
 
 2. Upload your video file or paste the link to your video
 
@@ -66,7 +60,6 @@ npm run dev
 | .webm      | ✅       |
 | .flac      | ✅       |
 
-
 ### Output
 
 | Format | Extension | Supported |
@@ -76,6 +69,7 @@ npm run dev
 ## Tech
 
 - [OpenAI](https://openai.com/)
+- [Groq](https://groq.com/)
 - [Next.js](https://nextjs.org/)
 - [FFmpeg](https://ffmpeg.org/)
 - [Multer](https://www.npmjs.com/package/multer)
