@@ -1,30 +1,25 @@
-import { Configuration, OpenAIApi } from 'openai'
+import OpenAI from 'openai'
 import fs from 'fs';
 import SubtitleType from '../../../types/subtitle';
 
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY as string,
-})
-
-const openai = new OpenAIApi(configuration)
-
-const WHISPER_MODEL = 'whisper-1'
+const openai = new OpenAI();
 
 export default async function transcription(req: any, res: any) {
     try {
         const { audioPath, lang } = JSON.parse(req.body)
 
-        const language = lang ? lang : 'en-US'
-        const response_format = 'srt'
+        const language = lang ?? 'en-US'
 
-        const transcription = await openai.createTranscription(
-            WHISPER_MODEL as any,
-            language,
-            response_format
-        );
+        const transcription = await openai.audio.transcriptions.create({
+          file: fs.createReadStream(audioPath),
+          model: "whisper-1",
+          response_format: "srt",
+          language,
+        }).catch((error) => {
+          console.log('error', error)
+        }) as any;
 
-        const apiResponse = transcription.data as any;
-
+        const apiResponse = transcription;
         const lines = apiResponse.trim().split('\n');
 
         const subtitles = [] as SubtitleType[];
